@@ -1,6 +1,8 @@
 #@Author:Hazar Bilgin
 # cnn model ile çeşitli resimlerin sınıflandırılma modeli veri olarak cifar10 verilerini kullanıyoruz ve modelimizi eğitip 
 #hangi resimleri nasıl sınıflandırıldığını modelimize eğitip ekranda çıktı alıp daha sonrasında doğruluk payını grafikleştiriyoruz
+#son halinde ise veritabanımıza her yeni veri eklendiğinde modelimizin doğruluk payı daha da yükselerek otomatik sınıflandırma işlemini gerçekleştiriyor
+
 from typing import Self
 import tensorflow as tf
 import keras 
