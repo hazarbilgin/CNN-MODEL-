@@ -1,4 +1,4 @@
-
+#@Author:Hazar Bilgin
 #ilk cnn model denemesi
 from typing import Self
 import tensorflow as tf
@@ -94,3 +94,4 @@ plt.show()
 test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
 #modelimizn test doğrulunu yazdıralım
 print(test_acc)
+#@Author:Hazar Bilgin
