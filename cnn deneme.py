@@ -55,19 +55,35 @@ print(model.summary)
 # Tipik olarak, genişlik ve yükseklik küçüldükçe, her Conv2D katmanına daha fazla 
 # çıktı kanalı eklemeyi (hesaplamalı olarak) karşılayabilirsiniz.
 
+
+#--------------------------------------------------------#
+
+#                                 Üzerine Yoğun katmanlar ekleyin
+# Modeli tamamlamak için, sınıflandırma gerçekleştirmek için 
+# konvolüsyonel tabandan (şekil (4, 4, 64)) son çıktı tensörünü 
+# bir veya daha fazla Yoğun katmana besleyeceksiniz. 
+# Yoğun katmanlar, giriş olarak vektörleri (1B olan) alırken, 
+# mevcut çıktı bir 3B tensördür. İlk olarak, 3B çıktıyı 
+# 1B olarak düzleştirecek (veya açacaksınız), ardından 
+# üstüne bir veya daha fazla Yoğun katman ekleyeceksiniz. 
+# CIFAR'ın 10 çıktı sınıfı vardır, bu nedenle 10 çıktılı 
+# son bir Yoğun katman kullanırsınız.
+
 model.add(layers.Flatten())
 model.add(layers.Dense(64,activation='relu'))
 model.add(layers.Dense(10))
 
+#modelimizn tam mimarisi:
 model.summary()
 
+#Modeli derleyin ve eğitin
 model.compile(optimizer='adam',
             loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
 metrics=['accuracy'])
 
 history = model.fit(train_images, train_labels, epochs=10, 
                     validation_data=(test_images, test_labels))
-
+#Modeli değerlendirin (grafikte modelin hata doğruluk payı)
 plt.plot(history.history['accuracy'], label='accuracy')
 plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
 plt.xlabel('Epoch')
@@ -76,4 +92,5 @@ plt.ylim([0.5, 1])
 plt.legend(loc='lower right')
 plt.show()
 test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+#modelimizn test doğrulunu yazdıralım
 print(test_acc)
